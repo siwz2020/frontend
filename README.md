@@ -15,6 +15,5 @@ After running [backend project](https://github.com/siwz2020/backend) (!) enter f
 
 ### Simplified model diagram
 ![UML](./main-model-diagram.svg)
-<img src="./main-model-diagram.svg">
 
 You can modify diagrams by editing ```*.plantuml```
