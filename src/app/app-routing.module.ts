@@ -22,7 +22,6 @@ export const Approutes: Routes = [
             { title: 'Starter Page' }
           ]
         }
-        // loadChildren: () => import('./starter/starter.module').then(m => m.StarterModule)
       },
       {
         path: 'starter/flights',
@@ -53,11 +52,6 @@ export const Approutes: Routes = [
             { title: 'Tickets Page' }
           ]
         }
-      },
-      // @TODO: delete later
-      {
-        path: 'component',
-        loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
       }
     ]
   },
