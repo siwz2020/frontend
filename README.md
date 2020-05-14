@@ -13,7 +13,8 @@ This will automatically open your browser on 'localhost:4200'
 After running [backend project](https://github.com/siwz2020/backend) (!) enter following url:
 ```http://localhost:8080/swagger-ui.html```
 
-### Simplified model diagram
-![UML](./main-model-diagram.svg)
+### Booking sequence diagram
+![UML](./diagrams/booking-sequence/sequence.svg)
 
-You can modify diagrams by editing ```*.plantuml```
+### Data Transfer Objects
+![UML](./diagrams/dtos/dtos.svg)
