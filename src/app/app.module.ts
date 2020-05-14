@@ -28,6 +28,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { AirportsComponent } from './airports/airports.component';
 import { TripsComponent } from './trips/trips.component';
 import { StarterComponent } from './starter/starter.component';
+import { FlightsComponent } from './starter/flights/flights.component';
+import { CardComponent } from './airports/card/card.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -46,6 +48,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SidebarComponent,
     AirportsComponent,
     TripsComponent,
+    FlightsComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +57,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-	PerfectScrollbarModule,
+	  PerfectScrollbarModule,
     NgbModule,
     RouterModule.forRoot(Approutes, { useHash: false })
   ],

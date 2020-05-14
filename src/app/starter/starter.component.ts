@@ -3,6 +3,7 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 @Component({
+  selector: 'app-starter',
   templateUrl: './starter.component.html',
   styleUrls: ['./starter.component.scss']
 })
@@ -12,6 +13,7 @@ export class StarterComponent {
   date: { year: number, month: number };
   todayDate = new Date().toISOString().slice(0,10);
   nextDate = new Date(new Date().getTime() + (3 * 24 * 60 * 60 * 1000)).toISOString().slice(0,10);
+  passengersNumber = 1;
 
   constructor(
     private router: Router,
@@ -23,8 +25,9 @@ export class StarterComponent {
     this.model = this.calendar.getToday();
   }
 
+  // @TODO: add query params to all property
   onSubmit() {
-    this.router.navigate(['starter/flights']);
+    this.router.navigate(['starter/flights'], { queryParams: { passengersNumber: this.passengersNumber }});
   }
 
 }

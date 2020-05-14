@@ -57,7 +57,12 @@
               <div class="form-group col-6" style="display: inline-block">
                 <label for="passengerNumber">Ilość pasażerów</label>
                 <div class="input-group">
-                  <input id="passengerNumber" class="form-control" type="number" placeholder="1">
+                  <input 
+                    [(ngModel)]="passengersNumber"
+                    [ngModelOptions]="{standalone: true}"
+                    id="passengerNumber"
+                    class="form-control"
+                    type="number"/>
                 </div>
               </div>
 

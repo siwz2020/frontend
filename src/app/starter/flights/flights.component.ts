@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Passenger } from './passenger.type';
 
 @Component({
   selector: 'app-flights',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./flights.component.css']
 })
 export class FlightsComponent implements OnInit {
+// @TODO: extract it to the proper file
+  passengersNumber: number;
+  passengers: Passenger[] = [];
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.passengersNumber = params['passengersNumber'];
+      console.log(this.passengers);
+    });    
   }
 
+  onChange() {
+    console.log(this.passengers);
+  }
 }
