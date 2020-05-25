@@ -1,11 +1,19 @@
-import { TripClass } from "./trip-class.enum";
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
-export class TripSearchParams {
+export class SearchParams {
   oneWay: boolean;
   from: string;
   to: string;
-  departureDate: string;
-  arrivalDate: string;
+  departureDate: NgbDateStruct;
+  arrivalDate: NgbDateStruct;
   passengerNumber: number;
-  tripClass: TripClass
+  tripClass: string;
+
+  constructor() {
+    this.oneWay = true;
+    this.from = '';
+    this.to = '';
+    this.passengerNumber = 1;
+    this.tripClass = 'economic';
+  }
 }
