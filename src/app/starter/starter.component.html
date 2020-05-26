@@ -58,7 +58,8 @@
                 <label for="departureDate">Data wylotu</label>
                 <div class="input-group">
                   <input
-                    [(ngModel)]="trip.departureDate"
+                    [(ngModel)]="departureDateStruct"
+                    (blur)="onDateChange()"
                     id="departureDate"
                     class="form-control"
                     [placeholder]="todayDate"
@@ -69,6 +70,7 @@
                   <div class="input-group-append">
                     <button
                       class="btn btn-outline-secondary"
+                      (blur)="onDateChange()"
                       (click)="departureDp.toggle()"
                       type="button">
                         <i class="fa fa-calendar"></i>
@@ -81,7 +83,8 @@
                 <label for="arrivalDate">Data przylotu</label>
                 <div class="input-group">
                   <input
-                    [(ngModel)]="trip.arrivalDate"
+                    [(ngModel)]="arrivalDateStruct"
+                    (blur)="onDateChange()"
                     id="arrivalDate"
                     class="form-control"
                     [placeholder]="nextDate"
@@ -94,6 +97,7 @@
                     <button
                       class="btn btn-outline-secondary"
                       (click)="arrivalDp.toggle()"
+                      (blur)="onDateChange()"
                       type="button">
                         <i class="fa fa-calendar"></i>
                       </button>

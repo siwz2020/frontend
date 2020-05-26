@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Passenger } from './passenger.type';
+import { DateFormatter } from '../date-formatter';
+import { SearchParams } from '../trip-search-params.type';
 
 @Component({
   selector: 'app-flights',
@@ -8,20 +9,20 @@ import { Passenger } from './passenger.type';
   styleUrls: ['./flights.component.css']
 })
 export class FlightsComponent implements OnInit {
-// @TODO: extract it to the proper file
-  passengersNumber: number;
-  passengers: Passenger[] = [];
+  private formatter = new DateFormatter();
+  private searchParams = new SearchParams();
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.passengersNumber = params['passengersNumber'];
-      console.log(this.passengers);
-    });    
+      this.searchParams = JSON.parse(params.search);
+
+      console.log(this.searchParams);
+    });
   }
 
-  onChange() {
-    console.log(this.passengers);
+  private fetchRoutes = () => {
+
   }
 }

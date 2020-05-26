@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgbDateStruct, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { SearchParams } from './trip-search-params.type';
 import { DateFormatter } from './date-formatter';
@@ -19,12 +19,20 @@ export class StarterComponent {
   todayDate = new Date().toISOString().slice(0,10);
   nextDate = new Date(new Date().getTime() + (3 * 24 * 60 * 60 * 1000)).toISOString().slice(0,10);
 
+  arrivalDateStruct: NgbDateStruct;
+  departureDateStruct: NgbDateStruct;
+
   constructor(
     private router: Router,
     private calendar: NgbCalendar) {
       this.subtitle = 'Wypełnij poniższy formularz...';
-      this.trip.departureDate = this.formatter.parse(this.todayDate);
-      this.trip.arrivalDate = this.formatter.parse(this.nextDate);
+      this.trip.departureDate = this.todayDate;
+      this.trip.arrivalDate = this.nextDate;
+  }
+
+  onDateChange = () => {
+    this.trip.arrivalDate = this.formatter.format(this.arrivalDateStruct);
+    this.trip.departureDate = this.formatter.format(this.departureDateStruct);
   }
 
   selectToday() {
@@ -32,30 +40,10 @@ export class StarterComponent {
   }
 
   onSubmit() {
-    const {
-      oneWay,
-      from,
-      to,
-      departureDate,
-      arrivalDate,
-      passengerNumber,
-      tripClass
-    } = this.trip;
-
-    const depDate = this.formatter.format(departureDate);
-    const arrDate = this.formatter.format(arrivalDate);
-
+    const search = JSON.stringify(this.trip);
     this.router.navigate(
       ['starter/flights'], 
-      { queryParams: { 
-        oneWay,
-        from,
-        to,
-        departureDate: depDate,
-        arrivalDate: arrDate,
-        passengerNumber,
-        tripClass
-      }}
+      { queryParams: { search }}
     );
   }
 

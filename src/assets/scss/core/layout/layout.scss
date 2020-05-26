@@ -11,8 +11,9 @@
 
 .page-wrapper {
     background-image: url('https://28yazity2rf1ct4rc2d8vddw-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/Chicago-shutterstock_1234882726-1.jpg');
-    background-size:100% 100%;
-    // background-position-y: 60px;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-attachment: fixed;
     min-height: 100vh;
     position: relative;
     transition: 0.2s ease-in;
