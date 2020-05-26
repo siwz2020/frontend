@@ -1,4 +1,4 @@
-import { Ticket } from "src/app/trips/ticket.type";
+import { Ticket } from './ticket.type';
 
 export class Trip {
   tickets: Ticket[];
