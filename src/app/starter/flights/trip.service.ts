@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Trip } from './models/trip.type';
+import { Trip } from '../models/trip.type';
 import { TRIPS_URL } from 'src/environments/url';
 import { SearchParams } from '../trip-search-params.type';
 import { SearchQueryParams } from './search-query-params';

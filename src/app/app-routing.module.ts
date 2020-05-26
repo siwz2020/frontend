@@ -6,6 +6,7 @@ import { StarterComponent } from './starter/starter.component';
 import { AirportsComponent } from './airports/airports.component';
 import { TripsComponent } from './trips/trips.component';
 import { FlightsComponent } from './starter/flights/flights.component';
+import { PassengerDetailsComponent } from './starter/passenger-details/passenger-details.component';
 
 export const Approutes: Routes = [
   {
@@ -27,6 +28,17 @@ export const Approutes: Routes = [
         path: 'starter/flights',
         component: FlightsComponent,
         data: {
+          title: 'Tu będą dopasowane loty',
+          urls: [
+            { title: 'Starter Page' }
+          ]
+        }
+      },
+      {
+        path: 'starter/flights/book',
+        component: PassengerDetailsComponent,
+        data: {
+
           title: 'Tu będą dopasowane loty',
           urls: [
             { title: 'Starter Page' }

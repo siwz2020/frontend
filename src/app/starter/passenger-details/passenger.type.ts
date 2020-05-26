@@ -2,7 +2,7 @@
 export class Passenger {
   firstName?: string = '';
   lastName: string = '';
-  dateOfBirth?: Date = new Date();
+  dateOfBirth?: string = '';
   phoneNumber?: string = '';
   email?: string = '';
   id?: string = '';

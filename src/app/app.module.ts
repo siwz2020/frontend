@@ -30,6 +30,7 @@ import { TripsComponent } from './trips/trips.component';
 import { StarterComponent } from './starter/starter.component';
 import { FlightsComponent } from './starter/flights/flights.component';
 import { CardComponent } from './airports/card/card.component';
+import { PassengerDetailsComponent } from './starter/passenger-details/passenger-details.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -49,7 +50,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AirportsComponent,
     TripsComponent,
     FlightsComponent,
-    CardComponent
+    CardComponent,
+    PassengerDetailsComponent
   ],
   imports: [
     CommonModule,

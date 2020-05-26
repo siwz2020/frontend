@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SearchParams } from '../trip-search-params.type';
-import { Trip } from './models/trip.type';
+import { Trip } from '../models/trip.type';
 import { TripService } from './trip.service';
 
 @Component({
@@ -15,7 +15,8 @@ export class FlightsComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private tripService: TripService) { }
+    private tripService: TripService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -31,6 +32,17 @@ export class FlightsComponent implements OnInit {
     //   });
 
     this.trips = this.mockSomeTrips();
+  }
+
+  onBook = (chosenTrip: Trip) => {
+    const trip = JSON.stringify(chosenTrip);
+    this.router.navigate(
+      ['/starter/flights/book'],
+      { queryParams: {
+        trip,
+        'passengers': JSON.stringify(this.searchParams.passengerNumber)
+      }
+     });
   }
 
   // @TODO: mock - delete later
