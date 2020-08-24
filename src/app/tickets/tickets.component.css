@@ -1,0 +1,9 @@
+.search-input-wrapper {
+  display: relative;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.search-code-input {
+  width: 80%;
+}

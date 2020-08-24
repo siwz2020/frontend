@@ -1,20 +1,20 @@
-# frontend
+# FlightBooking
 
-### Run project
-##### Step 1:
-Make sure you have installed node. Then run ```npm install``` to install all dependencies.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
-#### Step 2:
-Run ```ng serve -o```
-This will automatically open your browser on 'localhost:4200'
+## Development server
 
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-### Swagger API documentation
-After running [backend project](https://github.com/siwz2020/backend) (!) enter following url:
-```http://localhost:8080/swagger-ui.html```
+## Build
 
-### Booking sequence diagram
-![UML](./diagrams/booking-sequence/sequence.svg)
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-### Data Transfer Objects
-![UML](./diagrams/dtos/dtos.svg)
+### Setup project
+1) Install node.js locally.
+2) Clone repository and run command ```npm install``` in project's root directory. 
+3) Run ```npm start``` to compile and run project.
+4) Open ```localhost:4200``` url in the browser.
+
+### TODO:
+- Adjust Dto objects
