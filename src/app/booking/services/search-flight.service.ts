@@ -1,6 +1,6 @@
 import { Ticket } from './../../models/ticket';
 import { Trip } from './../../models/trip';
-import { environment } from './../../../environments/environment';
+import { environment, URL } from './../../../environments/environment';
 import { FlightRequestQueryParams } from './../../models/flight-request-query-params';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -14,14 +14,14 @@ export class SearchFlightService {
 
   constructor(private httpClient: HttpClient) {}
 
-  private readonly FLIGHTS_URL = environment.url + '/flights';
+  private readonly FLIGHTS_URL = URL + '/trips/findTrips';
 
   public fetchAvailableFlights(params: FlightRequestQueryParams): void {
     // TODO: delete mock later
-    this.foundTrips.next(this.returnMockedTrips());
-    // this.httpClient
-    //   .get<Trip[]>(this.FLIGHTS_URL, this.createHttpOptions(params))
-    //   .subscribe(this.onTripsReceived());
+    // this.foundTrips.next(this.returnMockedTrips());
+    this.httpClient
+      .get<Trip[]>(this.FLIGHTS_URL, this.createHttpOptions(params))
+      .subscribe(this.onTripsReceived());
   }
 
   public getFoundTrips(): Observable<Trip[]> {
@@ -30,6 +30,7 @@ export class SearchFlightService {
 
   private onTripsReceived(): (value: Trip[]) => void {
     return (trips: Trip[]) => {
+      console.log('Received trips: ', trips);
       this.foundTrips.next(trips);
     };
   }

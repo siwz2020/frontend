@@ -1,13 +1,32 @@
+import { AirportService } from './airport.service';
 import { FlightRequestQueryParams } from './../../models/flight-request-query-params';
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Airport } from 'src/app/models/airport';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchFlightFormBuilderService {
 
-  constructor(private formBuilder: FormBuilder) { }
+  private months = {
+    'Jan': '01',
+    'Feb': '02',
+    'Mar': '03',
+    'Apr': '04',
+    'May': '05',
+    'Jun': '06',
+    'Jul': '07',
+    'Aug': '08',
+    'Sep': '09',
+    'Oct': '10',
+    'Nov': '11',
+    'Dec': '12'
+  };
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private airportService: AirportService) { }
 
   public buildForm(): FormGroup {
     return this.formBuilder.group({
@@ -25,14 +44,23 @@ export class SearchFlightFormBuilderService {
 
   public mapFormGroupToParams(form: FormGroup): FlightRequestQueryParams {
     return {
-      departureDateStart: form.controls['departureDateStart'].value,
-      departureDateEnd: form.controls['departureDateEnd'].value,
-      sourceLocation: form.controls['sourceLocation'].value,
-      arrivalDateStart: form.controls['arrivalDateStart']?.value,
-      arrivalDateEnd: form.controls['arrivalDateEnd']?.value,
-      destinationLocation: form.controls['destinationLocation'].value,
-      maxIntermediateFlights: form.controls['maxIntermediateFlights'].value,
-      maxIntervalBetweenFlights: form.controls['maxIntervalBetweenFlights'].value
+      srcAirportId: this.findAirportId(form.controls['sourceLocation'].value),
+      dstAirportId: this.findAirportId(form.controls['destinationLocation'].value),
+      maxChange: form.controls['maxIntermediateFlights'].value,
+      minDepartureDate: this.parseDate(form.controls['departureDateStart'].value),
+      maxDepartureDate: this.parseDate(form.controls['departureDateEnd'].value),
+      maxTimeBreak: form.controls['maxIntervalBetweenFlights'].value
     };
+  }
+
+  private findAirportId(airportDn: string): number {
+
+    return this.airportService.getAirports().find((airport: Airport) => airport.name.toUpperCase().includes(airportDn.toUpperCase().split(',')[0])).id;
+  }
+
+  private parseDate(date: string): string {
+    let [ weekDay, month, day, year ] = date.toString().split(' ');
+    month = this.months[month];
+    return `${year}-${month}-${day}`;
   }
 }

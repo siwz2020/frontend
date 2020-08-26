@@ -1,4 +1,4 @@
-import { environment } from './../../../environments/environment';
+import { environment, URL } from './../../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { Airport } from './../../models/airport';
 import { Injectable } from '@angular/core';
@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AirportService {
 
-  airports: Airport[];
+  private airports: Airport[];
 
   constructor(
     private httpClient: HttpClient
@@ -36,11 +36,14 @@ export class AirportService {
   }
 
   private fetchAirports(): void {
-    this.airports = this.mockAirports();
-    // FIXME: Uncomment
-    // this.httpClient.get<Airport[]>(environment + '/airports').subscribe(
-    //   (airports: Airport[]) => { this.airports = airports; }
-    // )
+    // this.airports = this.mockAirports();
+    // FIXME: Uncomment 
+
+    this.httpClient.get<Airport[]>(URL + '/airports', { headers: {
+      'Content-Type': 'application/json'
+    }}).subscribe(
+      (airports: Airport[]) => { this.airports = airports; }
+    );
   }
 
   private mockAirports(): Airport[] {
