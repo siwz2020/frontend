@@ -70,7 +70,6 @@ export class SearchFlightFormBuilderService {
   }
 
   private findAirportId(airportDn: string): number {
-
     return this.airportService.getAirports().find((airport: Airport) => airport.name.toUpperCase().includes(airportDn.toUpperCase().split(',')[0])).id;
   }
 

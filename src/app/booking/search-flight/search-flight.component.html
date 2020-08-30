@@ -18,8 +18,7 @@
           />
           <mat-autocomplete #srcAc>
             <mat-option *ngFor="let option of autocompleteOptions | async" [value]="option.name.concat(', ', option.city, ', ', option.country)">
-              {{option.name}}, {{option.city}}, {{option.country}}
-            </mat-option>
+              {{option.city}}, {{option.country}}, {{option.name}}            </mat-option>
           </mat-autocomplete>
       </mat-form-field>
 
@@ -42,7 +41,7 @@
           />
           <mat-autocomplete #dstAc>
             <mat-option *ngFor="let option of autocompleteOptions | async" [value]="option.name.concat(', ', option.city, ', ', option.country)">
-              {{option.name}}, {{option.city}}, {{option.country}}
+              {{option.city}}, {{option.country}}, {{option.name}}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
