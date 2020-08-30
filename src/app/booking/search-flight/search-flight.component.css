@@ -6,8 +6,18 @@ form > * {
   margin-right: 2vw;
 }
 
-.mat-form-field {
-  width: 25%;
+.mat-form-field, .mat-checkbox {
   font-size: 1.2rem;
 }
 
+.mat-checkbox {
+  display: block;
+}
+
+.location {
+  width: 45%;
+}
+
+.date {
+  width: 15%;
+}

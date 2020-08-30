@@ -1,10 +1,10 @@
 import { Airport } from './airport';
 
 export interface FlightRequestQueryParams {
-  srcAirportId: number;
+  arrivalDate: string;
+  departureDate: string;
   dstAirportId: number;
-  maxChange: number;
-  maxDepartureDate: string;
-  maxTimeBreak: number;
-  minDepartureDate: string;
+  passengerNumber: number;
+  srcAirportId: number;
+  twoTrip: boolean;
 }

@@ -9,7 +9,7 @@ import { Airport } from 'src/app/models/airport';
 })
 export class SearchFlightFormBuilderService {
 
-  private months = {
+  private readonly MONTHS = {
     'Jan': '01',
     'Feb': '02',
     'Mar': '03',
@@ -32,13 +32,12 @@ export class SearchFlightFormBuilderService {
     return this.formBuilder.group({
       sourceLocation: ['', Validators.required],
       destinationLocation: ['', Validators.required],
-      departureDateStart: ['', Validators.required],
-      departureDateEnd: ['', Validators.required],
-      // arrivalDate: ['', Validators.required],
-      oneWay: [true, Validators.required],
-      passengersNumber: [1, Validators.required],
-      maxIntervalBetweenFlights: [8, [Validators.required, Validators.max(48), Validators.min(1)]],
-      maxIntermediateFlights: [2, [Validators.required, Validators.max(4), Validators.min(0)]]
+      departureDate: ['', Validators.required],
+      arrivalDate: ['', Validators.required],
+      bothWays: [false],
+      passengersNumber: [1, Validators.required]
+      // maxIntervalBetweenFlights: [8, [Validators.required, Validators.max(48), Validators.min(1)]],
+      // maxIntermediateFlights: [2, [Validators.required, Validators.max(4), Validators.min(0)]]
     });
   }
 
@@ -46,10 +45,10 @@ export class SearchFlightFormBuilderService {
     return {
       srcAirportId: this.findAirportId(form.controls['sourceLocation'].value),
       dstAirportId: this.findAirportId(form.controls['destinationLocation'].value),
-      maxChange: form.controls['maxIntermediateFlights'].value,
-      minDepartureDate: this.parseDate(form.controls['departureDateStart'].value),
-      maxDepartureDate: this.parseDate(form.controls['departureDateEnd'].value),
-      maxTimeBreak: form.controls['maxIntervalBetweenFlights'].value
+      departureDate: this.parseDate(form.controls['departureDate'].value),
+      arrivalDate: this.parseDate(form.controls['arrivalDate'].value),
+      passengerNumber: form.controls['passengersNumber'].value,
+      twoTrip: form.controls['bothWays'].value
     };
   }
 
@@ -60,7 +59,7 @@ export class SearchFlightFormBuilderService {
 
   private parseDate(date: string): string {
     let [ weekDay, month, day, year ] = date.toString().split(' ');
-    month = this.months[month];
+    month = this.MONTHS[month];
     return `${year}-${month}-${day}`;
   }
 }

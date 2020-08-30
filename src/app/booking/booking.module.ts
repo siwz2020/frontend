@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlightComponent } from './flights/flight/flight.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OrderComponent } from './order/order.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { OrderComponent } from './order/order.component';
     HttpClientModule,
     MatAutocompleteModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCheckboxModule
   ]
 })
 export class BookingModule { }

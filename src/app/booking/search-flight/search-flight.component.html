@@ -6,7 +6,7 @@
 
   <mat-card-content>
     <form [formGroup]="form">
-      <mat-form-field>
+      <mat-form-field class="location">
         <mat-label>Skąd:</mat-label>
         <input
           matInput
@@ -22,7 +22,14 @@
           </mat-autocomplete>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="date">
+        <mat-label>Data wylotu:</mat-label>
+        <input matInput [matDatepicker]="departureDp" formControlName="departureDate"/>
+        <mat-datepicker-toggle matSuffix [for]="departureDp"></mat-datepicker-toggle>
+        <mat-datepicker #departureDp></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="location">
         <mat-label>Dokąd:</mat-label>
         <input
           matInput
@@ -36,16 +43,16 @@
               {{option.name}}, {{option.city}}, {{option.country}}
             </mat-option>
           </mat-autocomplete>
-      </mat-form-field>
+        </mat-form-field>
 
-      <!-- <mat-form-field>
+      <mat-form-field class="date">
         <mat-label>Data przylotu:</mat-label>
         <input matInput [matDatepicker]="arrivalDp" formControlName="arrivalDate"/>
         <mat-datepicker-toggle matSuffix [for]="arrivalDp"></mat-datepicker-toggle>
         <mat-datepicker #arrivalDp></mat-datepicker>
-      </mat-form-field> -->
+      </mat-form-field>
 
-      <mat-form-field>
+      <!-- <mat-form-field>
         <mat-label>Zakres daty wylotu:</mat-label>
         <mat-date-range-input [rangePicker]="departureDp">
           <input
@@ -62,9 +69,9 @@
 
         <mat-datepicker-toggle matSuffix [for]="departureDp"></mat-datepicker-toggle>
         <mat-date-range-picker #departureDp></mat-date-range-picker>
-      </mat-form-field>
+      </mat-form-field> -->
 
-      <mat-form-field>
+      <!-- <mat-form-field>
         <mat-label>Maksymalna liczba przesiadek:</mat-label>
         <input
           matInput
@@ -82,17 +89,14 @@
           max="48"
           type="number"
           formControlName="maxIntervalBetweenFlights" />
-      </mat-form-field>
+      </mat-form-field> -->
 
       <!-- <mat-form-field>
         <mat-label>Liczba pasażerów:</mat-label>
         <input matInput type="number" formControlName="passengersNumber" />
       </mat-form-field> -->
 
-      <!-- <mat-form-field>
-        <mat-label>W jedną stronę?</mat-label>
-          <input type="checkbox" formControlName="oneWay" />
-      </mat-form-field> -->
+      <mat-checkbox color="primary" formControlName="bothWays">W dwie strony?</mat-checkbox>
     </form>
   </mat-card-content>
   <mat-card-actions>
