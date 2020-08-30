@@ -1,7 +1,7 @@
 import { AirportService } from './airport.service';
 import { FlightRequestQueryParams } from './../../models/flight-request-query-params';
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, Form } from '@angular/forms';
 import { Airport } from 'src/app/models/airport';
 
 @Injectable({
@@ -50,6 +50,23 @@ export class SearchFlightFormBuilderService {
       passengerNumber: form.controls['passengersNumber'].value,
       twoTrip: form.controls['bothWays'].value
     };
+  }
+
+  public disableOptionChosenInAnotherLocationField(property: string, form: FormGroup): (value: Airport[]) => Airport[] {
+    return (airports: Airport[]): Airport[] => {
+      let airportIdToDisable = this.getAirportToDisable(property, form);
+      if (!airportIdToDisable) { return; }
+
+      return airports.filter((airport: Airport) => airport.id !== airportIdToDisable);
+    };
+  }
+
+  private getAirportToDisable(property: string, form: FormGroup): number {
+    if (property ==='sourceLocation') {
+      return this.findAirportId(form.controls['destinationLocation'].value);
+    } else {
+      return this.findAirportId(form.controls['sourceLocation'].value);
+    }
   }
 
   private findAirportId(airportDn: string): number {

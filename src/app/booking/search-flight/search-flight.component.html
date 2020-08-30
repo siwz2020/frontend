@@ -9,6 +9,7 @@
       <mat-form-field class="location">
         <mat-label>Skąd:</mat-label>
         <input
+          (click)="clearAutocompleteOptions()"
           matInput
           type="text"
           formControlName="sourceLocation"
@@ -16,7 +17,7 @@
           (input)="getAutocompleteAirportsOptions($event)"
           />
           <mat-autocomplete #srcAc>
-            <mat-option *ngFor="let option of srcOptions | async" [value]="option.name.concat(', ', option.city, ', ', option.country)">
+            <mat-option *ngFor="let option of autocompleteOptions | async" [value]="option.name.concat(', ', option.city, ', ', option.country)">
               {{option.name}}, {{option.city}}, {{option.country}}
             </mat-option>
           </mat-autocomplete>
@@ -36,10 +37,11 @@
           type="text"
           formControlName="destinationLocation"
           [matAutocomplete]="dstAc"
+          (click)="clearAutocompleteOptions()"
           (input)="getAutocompleteAirportsOptions($event)"
           />
           <mat-autocomplete #dstAc>
-            <mat-option *ngFor="let option of srcOptions | async" [value]="option.name.concat(', ', option.city, ', ', option.country)">
+            <mat-option *ngFor="let option of autocompleteOptions | async" [value]="option.name.concat(', ', option.city, ', ', option.country)">
               {{option.name}}, {{option.city}}, {{option.country}}
             </mat-option>
           </mat-autocomplete>
