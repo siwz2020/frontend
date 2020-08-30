@@ -1,5 +1,5 @@
 export interface Passenger {
-  firstname: string;
+  firstName: string;
   surname: string;
   dateOfBirth: string;
   phoneNumber: string;

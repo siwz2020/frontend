@@ -55,6 +55,7 @@ export class OrderingService {
   }
 
   private postBookingRequest(bookingRequest: BookingRequest): Observable<string> {
+    console.log(bookingRequest);
     return this.httpClient.post<string>(
       URL + '/trips/createTrip',
       bookingRequest
@@ -63,7 +64,7 @@ export class OrderingService {
 
   private composeBookingRequest(): BookingRequest {
     return {
-      chosenTrip: this.chosenFlight,
+      tripDto: this.chosenFlight,
       passengersDto: [this.passenger]
     };
   }

@@ -35,7 +35,7 @@ export class OrderFormBuilderService {
 
   public mapFormGroupToPassenger(form: FormGroup): Passenger {
     return {
-      firstname: form.controls['firstname'].value,
+      firstName: form.controls['firstname'].value,
       surname: form.controls['surname'].value,
       dateOfBirth: this.parseDate(form.controls['dateOfBirth'].value),
       pesel: form.controls['pesel'].value,
