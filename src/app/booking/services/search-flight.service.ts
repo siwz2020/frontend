@@ -20,7 +20,7 @@ export class SearchFlightService {
     // TODO: delete mock later
     // this.foundTrips.next(this.returnMockedTrips());
     this.httpClient
-      .get<Trip[]>(this.FLIGHTS_URL, this.createHttpOptions(params))
+      .get<[Trip[], Trip[]]>(this.FLIGHTS_URL, this.createHttpOptions(params))
       .subscribe(this.onTripsReceived());
   }
 
@@ -28,10 +28,10 @@ export class SearchFlightService {
     return this.foundTrips.asObservable();
   }
 
-  private onTripsReceived(): (value: Trip[]) => void {
-    return (trips: Trip[]) => {
+  private onTripsReceived(): (value: [Trip[], Trip[]]) => void {
+    return (trips: [Trip[], Trip[]]) => {
       console.log('Received trips: ', trips);
-      this.foundTrips.next(trips);
+      this.foundTrips.next(trips[0]);
     };
   }
 
@@ -48,12 +48,16 @@ export class SearchFlightService {
       {
         arrivalDate: '20/07/2020, 08:52',
         departureDate: '18/07/2020, 19:12',
+        arrivalTime:  '19:12',
+        departureTime:  '19:12',
         totalPrice: 421,
-        tickets: [
+        arraysTicket: [
           {
             arrivalDate: '20/07/2020, 08:52',
-            departureDate: '18/07/2020, 19:12',
-            flight: {
+            departureDate: '18/07/2020',
+            arrivalTime:  '19:12',
+            departureTime:  '19:12',
+            flightDto: {
               airline: {
                 code: 'LOT',
                 name: 'Polskie linie lotnicze',
@@ -71,6 +75,7 @@ export class SearchFlightService {
                 timezone: 3,
               },
               flightId: 5,
+              seatNumber: 5
             },
             totalPrice: 421,
           },
@@ -79,12 +84,16 @@ export class SearchFlightService {
       {
         arrivalDate: '20/07/2020, 09:02',
         departureDate: '18/07/2020, 17:12',
+        arrivalTime:  '19:12',
+        departureTime:  '19:12',
         totalPrice: 250,
-        tickets: [
+        arraysTicket: [
           {
             arrivalDate: '20/07/2020, 08:52',
+            arrivalTime:  '19:12',
+            departureTime:  '19:12',
             departureDate: '18/07/2020, 19:12',
-            flight: {
+            flightDto: {
               airline: {
                 code: 'LUF',
                 name: 'Lufthansaaa',
@@ -102,13 +111,16 @@ export class SearchFlightService {
                 timezone: 1
               },
               flightId: 2,
+              seatNumber: 2
             },
             totalPrice: 122,
           },
           {
             arrivalDate: '20/07/2020, 08:52',
             departureDate: '18/07/2020, 19:12',
-            flight: {
+            arrivalTime:  '19:12',
+            departureTime:  '19:12',
+            flightDto: {
               airline: {
                 code: 'WIZ',
                 name: 'Wizzair',
@@ -126,6 +138,7 @@ export class SearchFlightService {
                 timezone: 3
               },
               flightId: 6,
+              seatNumber: 44
             },
             totalPrice: 128,
           }

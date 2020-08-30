@@ -34,11 +34,15 @@ export class TicketHttpService {
       arrivalDate: '20/07/2020, 08:52',
       departureDate: '18/07/2020, 19:12',
       totalPrice: 421,
-      tickets: [
+      arrivalTime: '19:12',
+      departureTime: '12:15',
+      arraysTicket: [
         {
           arrivalDate: '20/07/2020, 08:52',
           departureDate: '18/07/2020, 19:12',
-          flight: {
+          arrivalTime: '19:12',
+          departureTime: '12:15',
+          flightDto: {
             airline: {
               code: 'LOT',
               name: 'Polskie linie lotnicze',
@@ -56,6 +60,7 @@ export class TicketHttpService {
               timezone: 3,
             },
             flightId: 5,
+            seatNumber: 23
           },
           totalPrice: 421,
         },
@@ -68,12 +73,16 @@ export class TicketHttpService {
     return {
       arrivalDate: '20/07/2020, 09:02',
       departureDate: '18/07/2020, 17:12',
+      arrivalTime: '19:12',
+      departureTime: '12:15',
       totalPrice: 250,
-      tickets: [
+      arraysTicket: [
         {
           arrivalDate: '20/07/2020, 08:52',
           departureDate: '18/07/2020, 19:12',
-          flight: {
+          arrivalTime: '19:12',
+          departureTime: '12:15',
+          flightDto: {
             airline: {
               code: 'LUF',
               name: 'Lufthansaaa',
@@ -91,13 +100,16 @@ export class TicketHttpService {
               timezone: 1,
             },
             flightId: 2,
+            seatNumber: 23
           },
-          totalPrice: 122,
+          totalPrice: 122
         },
         {
           arrivalDate: '20/07/2020, 08:52',
           departureDate: '18/07/2020, 19:12',
-          flight: {
+          arrivalTime: '19:12',
+          departureTime: '12:15',
+          flightDto: {
             airline: {
               code: 'WIZ',
               name: 'Wizzair',
@@ -115,6 +127,7 @@ export class TicketHttpService {
               timezone: 3,
             },
             flightId: 6,
+            seatNumber: 23
           },
           totalPrice: 128,
         },
@@ -127,12 +140,16 @@ export class TicketHttpService {
     return {
       arrivalDate: '20/07/2020, 09:02',
       departureDate: '18/07/2020, 17:12',
+      arrivalTime: '09:02',
+      departureTime: '17:12',
       totalPrice: 421,
-      tickets: [
+      arraysTicket: [
         {
           arrivalDate: '20/07/2020, 08:52',
           departureDate: '18/07/2020, 19:12',
-          flight: {
+          arrivalTime: '09:02',
+          departureTime: '17:12',
+          flightDto: {
             airline: {
               code: 'LUF',
               name: 'Zarezerwowany',
@@ -150,13 +167,16 @@ export class TicketHttpService {
               timezone: 1,
             },
             flightId: 2,
+            seatNumber: 23
           },
           totalPrice: 122,
         },
         {
           arrivalDate: '20/07/2020, 08:52',
           departureDate: '18/07/2020, 19:12',
-          flight: {
+          arrivalTime: '09:02',
+          departureTime: '17:12',
+          flightDto: {
             airline: {
               code: 'WIZ',
               name: 'Wizzair',
@@ -174,6 +194,7 @@ export class TicketHttpService {
               timezone: 3,
             },
             flightId: 6,
+            seatNumber: 44
           },
           totalPrice: 128,
         },

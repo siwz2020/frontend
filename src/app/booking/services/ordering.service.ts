@@ -1,4 +1,4 @@
-import { environment } from './../../../environments/environment';
+import { environment, URL } from './../../../environments/environment';
 import { Observable } from 'rxjs';
 import { BookingRequest } from './../../models/booking-request';
 import { Passenger } from './../../models/passenger';
@@ -31,31 +31,32 @@ export class OrderingService {
   private orderFlight(): void {
     const bookingRequest = this.composeBookingRequest();
     // FIXME: uncomment later
-    // this.postBookingRequest(bookingRequest).subscribe(
-    //   this.navigateToTripSummary()
-    // );
+    this.postBookingRequest(bookingRequest).subscribe(
+      this.navigateToTripSummary()
+    );
 
     // FIXME: delete later
-    this.router.navigate(['/tickets'], { queryParams: this.composeQueryParams(5) });
+    // this.router.navigate(['/tickets'], { queryParams: this.composeQueryParams(5) });
   }
 
     // TODO: maybe pass in extras some id of tickets?
-  private navigateToTripSummary(): (value: number) => void {
-    return (tripId: number) => {
+  private navigateToTripSummary(): (value: string) => void {
+    return (tripId: string) => {
+      console.log('received code: ', tripId);
       this.router.navigate(['/tickets'], { queryParams: this.composeQueryParams(tripId) });
     };
   }
 
 
-  private composeQueryParams(tripId: number): Params {
+  private composeQueryParams(tripId: string): Params {
     return {
       tripId
     };
   }
 
-  private postBookingRequest(bookingRequest: BookingRequest): Observable<number> {
-    return this.httpClient.post<number>(
-      environment.url + '/order',
+  private postBookingRequest(bookingRequest: BookingRequest): Observable<string> {
+    return this.httpClient.post<string>(
+      URL + '/trips/createTrip',
       bookingRequest
     );
   }
@@ -63,7 +64,7 @@ export class OrderingService {
   private composeBookingRequest(): BookingRequest {
     return {
       chosenTrip: this.chosenFlight,
-      passenger: this.passenger
+      passengersDto: [this.passenger]
     };
   }
 

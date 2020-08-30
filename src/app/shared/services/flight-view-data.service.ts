@@ -12,9 +12,9 @@ export class TripViewDataService {
 
   public toViewData(trip: Trip): FlightViewData {
     return {
-      sourcePlace: this.extractPlace(trip.tickets[0].flight.srcAirport),
-      destinationPlace: this.extractPlace(trip.tickets[trip.tickets.length - 1].flight.dstAirport),
-      numberOfTransfers: trip.tickets.length - 1,
+      sourcePlace: this.extractPlace(trip.arraysTicket[0].flightDto.srcAirport),
+      destinationPlace: this.extractPlace(trip.arraysTicket[trip.arraysTicket.length - 1].flightDto.dstAirport),
+      numberOfTransfers: trip.arraysTicket.length - 1,
       price: trip.totalPrice,
       arrivalDate: trip.arrivalDate,
       departureDate: trip.departureDate,
@@ -29,11 +29,11 @@ export class TripViewDataService {
   }
 
   private extractIntermediateFlights(trip: Trip): IntermediateConnection[] {
-    return trip.tickets.map((ticket: Ticket) => {
+    return trip.arraysTicket.map((ticket: Ticket) => {
       return {
-        srcPlace: this.extractPlace(ticket.flight.srcAirport),
-        dstPlace: this.extractPlace(ticket.flight.dstAirport),
-        airline: ticket.flight.airline.name,
+        srcPlace: this.extractPlace(ticket.flightDto.srcAirport),
+        dstPlace: this.extractPlace(ticket.flightDto.dstAirport),
+        airline: ticket.flightDto.airline.name,
         arrivalDate: ticket.arrivalDate,
         departureDate: ticket.departureDate
       } as IntermediateConnection;

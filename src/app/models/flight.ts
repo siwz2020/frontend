@@ -6,4 +6,5 @@ export interface Flight {
   airline: Airline;
   srcAirport: Airport;
   dstAirport: Airport;
+  seatNumber: number;
 }

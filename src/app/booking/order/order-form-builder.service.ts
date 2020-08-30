@@ -6,7 +6,20 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
   providedIn: 'root'
 })
 export class OrderFormBuilderService {
-
+  private readonly MONTHS = {
+    'Jan': '01',
+    'Feb': '02',
+    'Mar': '03',
+    'Apr': '04',
+    'May': '05',
+    'Jun': '06',
+    'Jul': '07',
+    'Aug': '08',
+    'Sep': '09',
+    'Oct': '10',
+    'Nov': '11',
+    'Dec': '12'
+  };
   constructor(private fb: FormBuilder) { }
 
   public createPassengerForm(): FormGroup {
@@ -24,10 +37,16 @@ export class OrderFormBuilderService {
     return {
       firstname: form.controls['firstname'].value,
       surname: form.controls['surname'].value,
-      dateOfBirth: form.controls['dateOfBirth'].value,
+      dateOfBirth: this.parseDate(form.controls['dateOfBirth'].value),
       pesel: form.controls['pesel'].value,
       phoneNumber: form.controls['phoneNumber'].value,
       email: form.controls['email'].value ? form.controls['email'].value : null
     };
+  }
+
+  private parseDate(date: string): string {
+    let [ weekDay, month, day, year ] = date.toString().split(' ');
+    month = this.MONTHS[month];
+    return `${year}-${month}-${day}`;
   }
 }
