@@ -50,7 +50,7 @@ export class TicketsComponent implements OnInit {
   }
 
   private extractTripCodeFromUrl(params: Params): void {
-    this.tripCodeSearchQuery = params['tripId'] ?? '';
+    this.tripCodeSearchQuery = params['code'] ?? '';
   }
 
   private onFoundTicket(): (value: Trip) => void {

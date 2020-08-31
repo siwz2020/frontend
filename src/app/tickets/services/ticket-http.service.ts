@@ -1,4 +1,4 @@
-import { environment } from './../../../environments/environment';
+import { environment, URL } from './../../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -8,24 +8,24 @@ import { Trip } from 'src/app/models/trip';
   providedIn: 'root',
 })
 export class TicketHttpService {
-  private readonly TICKET_URL = environment.url + '/trips';
+  private readonly TICKET_URL = URL + '/trips/findOneTrip';
 
   constructor(private httpClient: HttpClient) {}
 
   public searchForTrip(tripCode: string): Observable<Trip> {
     // FIXME: uncomment later
-    // return this.httpClient.get<Trip>(this.TICKET_URL + `/${tripCode}`);
+    return this.httpClient.get<Trip>(this.TICKET_URL + `?code=${tripCode}`);
     // TODO: delete later
-    switch (tripCode) {
-      case '4':
-        return of(this.returnTripMockWithIdEq4());
-      case '5':
-        return of(this.returnTripMockWithIdEq5());
-      case '6':
-        return of(this.returnTripMockWithIdEq6());
-      default:
-        console.error(`No trip with id: ${tripCode}`);
-    }
+    // switch (tripCode) {
+    //   case '4':
+    //     return of(this.returnTripMockWithIdEq4());
+    //   case '5':\
+    //     return of(this.returnTripMockWithIdEq5());
+    //   case '6':
+    //     return of(this.returnTripMockWithIdEq6());
+    //   default:
+    //     console.error(`No trip with id: ${tripCode}`);
+    // }
   }
 
   // TODO: delete later

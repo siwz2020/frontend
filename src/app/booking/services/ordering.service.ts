@@ -32,6 +32,7 @@ export class OrderingService {
     const bookingRequest = this.composeBookingRequest();
     // FIXME: uncomment later
     this.postBookingRequest(bookingRequest).subscribe(
+      // (val: string) => { console.log('siema ', val); }
       this.navigateToTripSummary()
     );
 
@@ -40,8 +41,9 @@ export class OrderingService {
   }
 
     // TODO: maybe pass in extras some id of tickets?
-  private navigateToTripSummary(): (value: string) => void {
-    return (tripId: string) => {
+  private navigateToTripSummary(): (response: { tripId: string }) => void {
+    return (response: { tripId: string }) => {
+      const { tripId } = response;
       console.log('received code: ', tripId);
       this.router.navigate(['/tickets'], { queryParams: this.composeQueryParams(tripId) });
     };
@@ -50,13 +52,12 @@ export class OrderingService {
 
   private composeQueryParams(tripId: string): Params {
     return {
-      tripId
+      code: tripId
     };
   }
 
-  private postBookingRequest(bookingRequest: BookingRequest): Observable<string> {
-    console.log(bookingRequest);
-    return this.httpClient.post<string>(
+  private postBookingRequest(bookingRequest: BookingRequest): Observable<{ tripId: string }> {
+    return this.httpClient.post<{ tripId: string }>(
       URL + '/trips/createTrip',
       bookingRequest
     );
