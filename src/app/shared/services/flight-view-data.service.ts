@@ -18,8 +18,17 @@ export class TripViewDataService {
       price: trip.totalPrice,
       arrivalDate: trip.arrivalDate,
       departureDate: trip.departureDate,
-      flights: this.extractIntermediateFlights(trip)
+      flights: this.extractIntermediateFlights(trip),
+      departureTime: trip.departureTime,
+      departureTimezone: this.extractTimezone(trip.arraysTicket[0].flightDto.srcAirport.timezone),
+      arrivalTime: trip.arrivalTime,
+      arrivalTimezone: this.extractTimezone(trip.arraysTicket[trip.arraysTicket.length - 1].flightDto.dstAirport.timezone)
     }
+  }
+
+  private extractTimezone(timezone: number): string {
+    if (timezone >= 0) { return `+${timezone}`; }
+    else { return `-${timezone}`; }
   }
 
   private extractPlace(airport: Airport): string {
@@ -35,7 +44,11 @@ export class TripViewDataService {
         dstPlace: this.extractPlace(ticket.flightDto.dstAirport),
         airline: ticket.flightDto.airline.name,
         arrivalDate: ticket.arrivalDate,
-        departureDate: ticket.departureDate
+        arrivalTime: ticket.arrivalTime,
+        arrivalTimezone: this.extractTimezone(ticket.flightDto.dstAirport.timezone),
+        departureDate: ticket.departureDate,
+        departureTime: ticket.departureTime,
+        departureTimezone: this.extractTimezone(ticket.flightDto.srcAirport.timezone)
       } as IntermediateConnection;
     })
   }
