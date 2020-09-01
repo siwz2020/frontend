@@ -19,7 +19,24 @@ export class SearchFlightComponent implements OnInit, OnDestroy {
   public readonly subtitle = 'Wypełnij formularz i znajdź idealną podróż';
   public form: FormGroup;
   public autocompleteOptions: Observable<Airport[]>;
+  public minDateForDepartureDate: Date;
+  public minDateForArrivalDate: Date;
   private subscriptions = new Subscription();
+
+  private readonly MONTHS = {
+    'Jan': '01',
+    'Feb': '02',
+    'Mar': '03',
+    'Apr': '04',
+    'May': '05',
+    'Jun': '06',
+    'Jul': '07',
+    'Aug': '08',
+    'Sep': '09',
+    'Oct': '10',
+    'Nov': '11',
+    'Dec': '12'
+  };
 
   constructor(
     private formBuilder: SearchFlightFormBuilderService,
@@ -32,10 +49,15 @@ export class SearchFlightComponent implements OnInit, OnDestroy {
     this.orderingService.clearService();
     this.form = this.formBuilder.buildForm();
     this.subscribeToBothWaysParameter();
+    this.determineMinDateForDepartureDate();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  public determineMinDateForArrivalDate(): void {
+    this.minDateForArrivalDate = this.parseDate(this.form.controls.departureDate.value);
   }
 
   public getAutocompleteAirportsOptions($event: any): void {
@@ -50,11 +72,8 @@ export class SearchFlightComponent implements OnInit, OnDestroy {
         map(this.formBuilder.disableOptionChosenInAnotherLocationField(property, this.form)));
   }
 
-  private shouldClearAutocomplete(property: string): boolean {
-    return !this.form.controls[property].value;
-  }
-
   public onSubmit(): void {
+    console.log(this.form.controls.departureDate.value);
     this.searchFlightService.fetchAvailableFlights(this.formBuilder.mapFormGroupToParams(this.form));
     this.router.navigate(['booking/flights']);
   }
@@ -63,10 +82,25 @@ export class SearchFlightComponent implements OnInit, OnDestroy {
     this.autocompleteOptions = of([]);
   }
 
+  private shouldClearAutocomplete(property: string): boolean {
+    return !this.form.controls[property].value;
+  }
+
   private subscribeToBothWaysParameter(): void {
     this.subscriptions.add(this.form.controls['bothWays'].valueChanges.subscribe(
       this.handleArrivalDateValidation()
     ));
+  }
+
+  private determineMinDateForDepartureDate(): void {
+    const todayDate = new Date();
+    this.minDateForDepartureDate = new Date(todayDate);
+  }
+  
+  private parseDate(date: string): Date {
+    let [ weekDay, month, day, year ] = date.toString().split(' ');
+    month = this.MONTHS[month];
+    return new Date(parseInt(year), parseInt(month), parseInt(day));
   }
 
   private handleArrivalDateValidation(): (bothWays: boolean) => void {

@@ -31,7 +31,7 @@
 
       <mat-form-field class="date">
         <mat-label>Data wylotu:</mat-label>
-        <input matInput [matDatepicker]="departureDp" formControlName="departureDate"/>
+        <input matInput (dateChange)="determineMinDateForArrivalDate()" [matDatepicker]="departureDp" formControlName="departureDate" [min]="minDateForDepartureDate" />
         <mat-datepicker-toggle matSuffix [for]="departureDp"></mat-datepicker-toggle>
         <mat-datepicker #departureDp></mat-datepicker>
       </mat-form-field>
@@ -55,7 +55,7 @@
 
       <mat-form-field class="date">
         <mat-label>Data przylotu:</mat-label>
-        <input matInput [matDatepicker]="arrivalDp" formControlName="arrivalDate" />
+        <input matInput [matDatepicker]="arrivalDp" formControlName="arrivalDate" [min]="minDateForArrivalDate" />
         <mat-datepicker-toggle matSuffix [for]="arrivalDp"></mat-datepicker-toggle>
         <mat-datepicker #arrivalDp></mat-datepicker>
       </mat-form-field>
