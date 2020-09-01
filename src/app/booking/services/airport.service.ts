@@ -1,3 +1,4 @@
+import { ErrorService } from './../../error/error.service';
 import { environment, URL } from './../../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { Airport } from './../../models/airport';
@@ -13,7 +14,8 @@ export class AirportService {
   private airports: Airport[];
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private errorService: ErrorService
   ) {
     this.fetchAirports();
   }
@@ -42,8 +44,17 @@ export class AirportService {
     this.httpClient.get<Airport[]>(URL + '/airports', { headers: {
       'Content-Type': 'application/json'
     }}).subscribe(
-      (airports: Airport[]) => { this.airports = airports; }
-    );
+      this.onSuccess(),
+      this.onError()
+    )
+  }
+
+  private onError(): (error: any) => void {
+    return (error: any) => { this.errorService.handleError(error); };
+  }
+
+  private onSuccess(): (value: Airport[]) => void {
+    return (airports: Airport[]) => { this.airports = airports; };
   }
 
   private mockAirports(): Airport[] {

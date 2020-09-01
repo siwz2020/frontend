@@ -1,3 +1,4 @@
+import { ErrorComponent } from './error/error.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -11,6 +12,10 @@ const routes: Routes = [
     path: 'tickets',
     loadChildren: () =>
       import('./tickets/tickets.module').then((m) => m.TicketsModule),
+  },
+  {
+    path: 'error',
+    component: ErrorComponent
   },
   {
     path: '',

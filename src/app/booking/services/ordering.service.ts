@@ -1,3 +1,4 @@
+import { ErrorService } from './../../error/error.service';
 import { SearchFlightService } from './search-flight.service';
 import { URL } from './../../../environments/environment';
 import { Observable, BehaviorSubject, of } from 'rxjs';
@@ -27,7 +28,8 @@ export class OrderingService {
   constructor(
     private router: Router,
     private httpClient: HttpClient,
-    private searchFlightService: SearchFlightService
+    private searchFlightService: SearchFlightService,
+    private errorService: ErrorService
     ) {
       this.checkIfTripIsBothWay();
       this.getFetchedTripsToDestination();
@@ -101,11 +103,16 @@ export class OrderingService {
     // FIXME: uncomment later
     this.postBookingRequest(bookingRequest).subscribe(
       // (val: string) => { console.log('siema ', val); }
-      this.navigateToTripSummary()
+      this.navigateToTripSummary(),
+      this.handleBookingRequestError()
     );
 
     // FIXME: delete later
     // this.router.navigate(['/tickets'], { queryParams: this.composeQueryParams(5) });
+  }
+
+  private handleBookingRequestError(): (error: any) => void {
+    return (error: any) => { this.errorService.handleError(error); };
   }
 
     // TODO: maybe pass in extras some id of tickets?

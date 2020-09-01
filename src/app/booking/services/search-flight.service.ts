@@ -1,3 +1,4 @@
+import { ErrorService } from './../../error/error.service';
 import { Ticket } from './../../models/ticket';
 import { Trip } from './../../models/trip';
 import { environment, URL } from './../../../environments/environment';
@@ -18,7 +19,9 @@ export class SearchFlightService {
   private tripsToDestination = new BehaviorSubject<Trip[]>([]);
   private tripsFromDestination = new BehaviorSubject<Trip[]>([]);
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private errorService: ErrorService) {}
 
   private readonly FLIGHTS_URL = URL + '/trips/findTrips';
 
@@ -27,7 +30,14 @@ export class SearchFlightService {
     // this.foundTrips.next(this.returnMockedTrips());
     this.httpClient
       .get<[Trip[], Trip[]]>(this.FLIGHTS_URL, this.createHttpOptions(params))
-      .subscribe(this.onTripsReceived());
+      .subscribe(
+        this.onTripsReceived(),
+        this.handleFetchTripError()
+      );
+  }
+
+  private handleFetchTripError(): (error: any) => void {
+    return (error: any) => { this.errorService.handleError(error); };
   }
 
   public getFoundTripsToDestination(): Observable<Trip[]> {
