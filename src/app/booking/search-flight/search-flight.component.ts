@@ -1,8 +1,8 @@
 import { SearchFlightService } from './../services/search-flight.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { AirportService } from './../services/airport.service';
 import { SearchFlightFormBuilderService } from './../services/search-flight-form-builder.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Airport } from 'src/app/models/airport';
 import { Router } from '@angular/router';
@@ -13,11 +13,12 @@ import { filter, map } from 'rxjs/operators';
   templateUrl: './search-flight.component.html',
   styleUrls: ['./search-flight.component.css']
 })
-export class SearchFlightComponent implements OnInit {
+export class SearchFlightComponent implements OnInit, OnDestroy {
   public readonly title = 'Dokąd teraz?';
   public readonly subtitle = 'Wypełnij formularz i znajdź idealną podróż';
   public form: FormGroup;
   public autocompleteOptions: Observable<Airport[]>;
+  private subscriptions = new Subscription();
 
   constructor(
     private formBuilder: SearchFlightFormBuilderService,
@@ -27,6 +28,11 @@ export class SearchFlightComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.buildForm();
+    this.subscribeToBothWaysParameter();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   public getAutocompleteAirportsOptions($event: any): void {
@@ -54,4 +60,16 @@ export class SearchFlightComponent implements OnInit {
     this.autocompleteOptions = of([]);
   }
 
+  private subscribeToBothWaysParameter(): void {
+    this.subscriptions.add(this.form.controls['bothWays'].valueChanges.subscribe(
+      this.handleArrivalDateValidation()
+    ));
+  }
+
+  private handleArrivalDateValidation(): (bothWays: boolean) => void {
+    return (bothWays: boolean) => {
+      if (bothWays) { this.formBuilder.addRequiredValidatorToArrivalDate(this.form); }
+      else { this.formBuilder.removeRequiredValidatorToArrivalDate(this.form); }
+    };
+  }
 }

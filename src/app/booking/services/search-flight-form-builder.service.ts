@@ -33,9 +33,9 @@ export class SearchFlightFormBuilderService {
       sourceLocation: ['', Validators.required],
       destinationLocation: ['', Validators.required],
       departureDate: ['', Validators.required],
-      arrivalDate: ['', Validators.required],
+      arrivalDate: [{ value: null, disabled: true }],
       bothWays: [false],
-      passengersNumber: [1, Validators.required]
+      passengersNumber: [1, [Validators.required, Validators.max(10), Validators.min(1)]]
       // maxIntervalBetweenFlights: [8, [Validators.required, Validators.max(48), Validators.min(1)]],
       // maxIntermediateFlights: [2, [Validators.required, Validators.max(4), Validators.min(0)]]
     });
@@ -59,6 +59,18 @@ export class SearchFlightFormBuilderService {
 
       return airports.filter((airport: Airport) => airport.id !== airportIdToDisable);
     };
+  }
+
+  public addRequiredValidatorToArrivalDate(form: FormGroup): void {
+    form.controls.arrivalDate.enable();
+    form.controls.arrivalDate.setValidators(Validators.required);
+    form.controls.arrivalDate.updateValueAndValidity();
+  }
+
+  public removeRequiredValidatorToArrivalDate(form: FormGroup): void {
+    form.controls.arrivalDate.disable();
+    form.controls.arrivalDate.setValidators(null);
+    form.controls.arrivalDate.updateValueAndValidity();
   }
 
   private getAirportToDisable(property: string, form: FormGroup): number {

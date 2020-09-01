@@ -11,7 +11,12 @@ form > * {
 }
 
 .mat-checkbox {
-  display: block;
+  width: 45%;
+  display: inline-block;
+}
+
+.passengers {
+  width: 15%;
 }
 
 .location {

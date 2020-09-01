@@ -6,6 +6,13 @@
 
   <mat-card-content>
     <form [formGroup]="form">
+
+      <mat-form-field class="passengers">
+        <mat-label>Liczba pasażerów:</mat-label>
+        <input matInput type="number" formControlName="passengersNumber" />
+      </mat-form-field>
+      <mat-checkbox color="primary" formControlName="bothWays">W dwie strony?</mat-checkbox>
+      
       <mat-form-field class="location">
         <mat-label>Skąd:</mat-label>
         <input
@@ -91,13 +98,6 @@
           type="number"
           formControlName="maxIntervalBetweenFlights" />
       </mat-form-field> -->
-
-      <!-- <mat-form-field>
-        <mat-label>Liczba pasażerów:</mat-label>
-        <input matInput type="number" formControlName="passengersNumber" />
-      </mat-form-field> -->
-
-      <mat-checkbox color="primary" formControlName="bothWays">W dwie strony?</mat-checkbox>
     </form>
   </mat-card-content>
   <mat-card-actions>
