@@ -6,11 +6,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
 
+enum FlightDirection {
+  TO_DESTINATION = 0,
+  FROM_DESTINATION = 1
+};
+
 @Injectable({
   providedIn: 'root',
 })
 export class SearchFlightService {
-  private foundTrips = new BehaviorSubject<Trip[]>([]);
+  private tripsToDestination = new BehaviorSubject<Trip[]>([]);
+  private tripsFromDestination = new BehaviorSubject<Trip[]>([]);
 
   constructor(private httpClient: HttpClient) {}
 
@@ -24,14 +30,19 @@ export class SearchFlightService {
       .subscribe(this.onTripsReceived());
   }
 
-  public getFoundTrips(): Observable<Trip[]> {
-    return this.foundTrips.asObservable();
+  public getFoundTripsToDestination(): Observable<Trip[]> {
+    return this.tripsToDestination.asObservable();
+  }
+
+  public getFoundTripsFromDestination(): Observable<Trip[]> {
+    return this.tripsFromDestination.asObservable();
   }
 
   private onTripsReceived(): (value: [Trip[], Trip[]]) => void {
     return (trips: [Trip[], Trip[]]) => {
       console.log('Received trips: ', trips);
-      this.foundTrips.next(trips[0]);
+      this.tripsToDestination.next(trips[FlightDirection.TO_DESTINATION]);
+      this.tripsFromDestination.next(trips[FlightDirection.FROM_DESTINATION]);
     };
   }
 

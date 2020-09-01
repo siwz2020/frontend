@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchFlightService } from '../services/search-flight.service';
 import { OrderingService } from '../services/ordering.service';
 import { Trip } from 'src/app/models/trip';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-flights',
@@ -10,13 +10,14 @@ import { Trip } from 'src/app/models/trip';
 })
 export class FlightsComponent implements OnInit {
   public flights: Trip[];
+  public title$: Observable<string>;
 
   constructor(
-    private searchFlightService: SearchFlightService,
     private orderingService: OrderingService) { }
 
   ngOnInit(): void {
     this.getFlights();
+    this.getComponentsTitle()
   }
 
   public onFlightSelection(chosenFlight: Trip): void {
@@ -24,10 +25,19 @@ export class FlightsComponent implements OnInit {
   }
 
   private getFlights(): void {
-    this.searchFlightService.getFoundTrips().subscribe(
+    this.orderingService.getFlightsToOrder().subscribe(
       (flights) => {
         this.flights = flights;
+        this.assignComponentsTitle();
       }
     );
+  }
+
+  private assignComponentsTitle(): void {
+    this.title$ = this.getComponentsTitle();
+  }
+
+  private getComponentsTitle(): Observable<string> {
+    return this.orderingService.getComponentTitle();
   }
 }

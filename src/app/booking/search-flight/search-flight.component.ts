@@ -1,3 +1,4 @@
+import { OrderingService } from './../services/ordering.service';
 import { SearchFlightService } from './../services/search-flight.service';
 import { Observable, of, Subscription } from 'rxjs';
 import { AirportService } from './../services/airport.service';
@@ -24,9 +25,11 @@ export class SearchFlightComponent implements OnInit, OnDestroy {
     private formBuilder: SearchFlightFormBuilderService,
     private airportService: AirportService,
     private router: Router,
-    private searchFlightService: SearchFlightService) { }
+    private searchFlightService: SearchFlightService,
+    private orderingService: OrderingService) { }
 
   ngOnInit() {
+    this.orderingService.clearService();
     this.form = this.formBuilder.buildForm();
     this.subscribeToBothWaysParameter();
   }

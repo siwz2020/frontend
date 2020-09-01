@@ -46,7 +46,9 @@ export class SearchFlightFormBuilderService {
       srcAirportId: this.findAirportId(form.controls['sourceLocation'].value),
       dstAirportId: this.findAirportId(form.controls['destinationLocation'].value),
       departureDate: this.parseDate(form.controls['departureDate'].value),
-      arrivalDate: this.parseDate(form.controls['arrivalDate'].value),
+      arrivalDate: form.controls['arrivalDate'].value ?
+        this.parseDate(form.controls['arrivalDate'].value)
+        : this.parseDate(form.controls['departureDate'].value),
       passengerNumber: form.controls['passengersNumber'].value,
       twoTrip: form.controls['bothWays'].value
     };

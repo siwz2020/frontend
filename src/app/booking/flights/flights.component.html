@@ -1,3 +1,5 @@
+<div class="title">{{title$ | async}}</div>
+
 <ul *ngFor="let flight of flights">
   <app-flight [flight]="flight" (chosenFlight)="onFlightSelection($event)"></app-flight>
 </ul>
