@@ -55,6 +55,7 @@ export class TicketsComponent implements OnInit {
 
   private onFoundTicket(): (value: Trip) => void {
     return (trip: Trip) => {
+      console.log('received ticket: ', trip);
       this.ticket = trip;
       this.onSuccessfullyFetchedTicket();
     };

@@ -16,3 +16,7 @@
 .mat-card-content {
   margin: 0 5vw;
 }
+
+.mat-expansion-panel {
+  margin: 1vh 0;
+}

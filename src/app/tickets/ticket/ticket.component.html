@@ -1,24 +1,24 @@
 <mat-card>
   <mat-card-header>
-    <div class="title">{{viewData.sourcePlace}} &nbsp; <i class="fa fa-arrow-right"></i> &nbsp; {{viewData.destinationPlace}}</div>
+    <div class="title">Lista biletów</div>
   </mat-card-header>
   <mat-card-subtitle>
-    {{viewData.departureDate}} &nbsp; <i class="fa fa-arrow-right"></i> &nbsp; {{viewData.arrivalDate}}<br/>
-    Liczba przesiadek: {{viewData.numberOfTransfers}}
+    Data rezerwacji: {{ticket.purchaseDate}}, {{ticket.purchaseTime}}
   </mat-card-subtitle>
   <mat-card-content>
-    <mat-accordion>
+    <mat-accordion *ngFor="let interFlight of viewData.flights; let i = index">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <mat-panel-title>Przesiadki: {{viewData.numberOfTransfers}}</mat-panel-title>
+          <mat-panel-title>Lot nr. {{ticket.arraysTicket[i].flightDto.id}}, miejsce {{ticket.arraysTicket[i].seatNumber}}, {{interFlight.srcPlace}}</mat-panel-title>
         </mat-expansion-panel-header>
-        <ul class="interFlightWrapper" *ngFor="let interFlight of viewData.flights">
-          <li class="interFlightRow">
-            <span>Wylot o godzinie <b>{{interFlight.departureDate}}</b> z <b>{{interFlight.srcPlace}}</b>
-              do <b>{{interFlight.dstPlace}}</b> na godzinę <b>{{interFlight.arrivalDate}}</b>
-              linią <b>{{interFlight.airline}}</b>
-            </span>
-          </li>
+        <ul class="interFlightWrapper">
+          <li class="interFlightRow">Z: <b>{{interFlight.srcPlace}}</b></li>
+          <li class="interFlightRow">Wylot: <b>{{interFlight.departureDate}}, {{interFlight.departureTime}}<sup>{{interFlight.departureTimezone}}</sup></b></li>
+          <li class="interFlightRow">Do: <b>{{interFlight.dstPlace}}</b></li>
+          <li class="interFlightRow">Przylot: <b>{{interFlight.arrivalDate}},  {{interFlight.arrivalTime}}<sup>{{interFlight.arrivalTimezone}}</sup></b></li>
+          <li class="interFlightRow">Linia lotnicza: <b>{{interFlight.airline}}</b></li>
+          <li class="interFlightRow">Nr miejsca: <b>{{ticket.arraysTicket[i].seatNumber}}</b></li>
+          <li class="interFlightRow">Cena biletu: <b>{{ticket.arraysTicket[i].totalPrice}}</b></li>
         </ul>
       </mat-expansion-panel>
     </mat-accordion>

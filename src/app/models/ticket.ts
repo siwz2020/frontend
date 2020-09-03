@@ -5,6 +5,6 @@ export interface Ticket {
   arrivalDate: string;
   arrivalTime:  string;
   departureTime:  string;
-  // seatNumber: number;
+  seatNumber?: number;
   totalPrice: number;
 }
