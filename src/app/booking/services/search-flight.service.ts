@@ -18,6 +18,7 @@ enum FlightDirection {
 export class SearchFlightService {
   private tripsToDestination = new BehaviorSubject<Trip[]>([]);
   private tripsFromDestination = new BehaviorSubject<Trip[]>([]);
+  private passengersNumber: number;
 
   constructor(
     private httpClient: HttpClient,
@@ -28,12 +29,17 @@ export class SearchFlightService {
   public fetchAvailableFlights(params: FlightRequestQueryParams): void {
     // TODO: delete mock later
     // this.foundTrips.next(this.returnMockedTrips());
+    this.passengersNumber = params.passengerNumber;
     this.httpClient
       .get<[Trip[], Trip[]]>(this.FLIGHTS_URL, this.createHttpOptions(params))
       .subscribe(
         this.onTripsReceived(),
         this.handleFetchTripError()
       );
+  }
+
+  public getPassengersNumber(): number {
+    return this.passengersNumber;
   }
 
   private handleFetchTripError(): (error: any) => void {

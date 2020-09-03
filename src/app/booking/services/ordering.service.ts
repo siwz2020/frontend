@@ -19,7 +19,7 @@ export class OrderingService {
   private chosenFlightToDestination: Trip;
   private chosenFlightFromDestination: Trip;
   private bothWayTrip: boolean;
-  private passenger: Passenger;
+  private passengers: Passenger[];
   private rebuildComponentWasTriggered = false;
   private readonly FLIGHTS_COMPONENT_FIRST_STEP_TITLE = 'Wybierz podróż do miejsca docelowego';
   private readonly FLIGHTS_COMPONENT_SECOND_STEP_TITLE = 'Wybierz podróż z miejsca docelowego';
@@ -42,8 +42,8 @@ export class OrderingService {
 
   }
 
-  public onPassengerFormFilled(passenger: Passenger): void {
-    this.passenger = passenger;
+  public onPassengerFormFilled(passenger: Passenger[]): void {
+    this.passengers = passenger;
     this.orderFlight();
   }
 
@@ -54,6 +54,10 @@ export class OrderingService {
   public getComponentTitle = (): Observable<string> => (
     !this.rebuildComponentWasTriggered ? of(this.FLIGHTS_COMPONENT_FIRST_STEP_TITLE) : of(this.FLIGHTS_COMPONENT_SECOND_STEP_TITLE)
   );
+
+  public getPassengersNumber(): number {
+    return this.searchFlightService.getPassengersNumber();
+  }
 
   public clearService(): void {
     this.flightsToRender.next([]);
@@ -141,7 +145,7 @@ export class OrderingService {
   private composeBookingRequest(): BookingRequest {
     return {
       tripDto: this.chosenFlightToDestination,
-      passengersDto: [this.passenger]
+      passengersDto: [...this.passengers]
     };
   }
 
