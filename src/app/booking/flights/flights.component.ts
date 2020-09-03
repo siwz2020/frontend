@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class FlightsComponent implements OnInit {
   public flights: Trip[];
   public title$: Observable<string>;
+  public isDataFetched = false;
 
   constructor(
     private orderingService: OrderingService) { }
@@ -25,10 +26,13 @@ export class FlightsComponent implements OnInit {
   }
 
   private getFlights(): void {
+    this.isDataFetched = false;
     this.orderingService.getFlightsToOrder().subscribe(
       (flights) => {
         this.flights = flights;
         this.assignComponentsTitle();
+        // simulate longer operation of fetching data
+        setTimeout(() => { this.isDataFetched = true; }, 1500);
       }
     );
   }

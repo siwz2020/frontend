@@ -10,3 +10,18 @@ ul {
   display: table;
   margin: 0 auto;
 }
+
+#flightsNotFound {
+  color: orange;
+}
+
+.spinner ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: white;
+}
+
+.spinner {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 4vh 47vw;
+}
