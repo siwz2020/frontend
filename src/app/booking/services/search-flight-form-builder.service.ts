@@ -48,7 +48,7 @@ export class SearchFlightFormBuilderService {
       departureDate: this.parseDate(form.controls['departureDate'].value),
       arrivalDate: form.controls['arrivalDate'].value ?
         this.parseDate(form.controls['arrivalDate'].value)
-        : this.parseDate(form.controls['departureDate'].value),
+        : null,
       passengerNumber: form.controls['passengersNumber'].value,
       twoTrip: form.controls['bothWays'].value
     };

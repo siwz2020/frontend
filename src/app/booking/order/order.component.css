@@ -2,3 +2,15 @@
   margin: 1vh 5%;
   width: 40%;
 }
+
+button {
+  display: block;
+  width: 25%;
+  margin: 0 auto;
+  background: white;
+}
+
+button:valid {
+  background: #673ab7;
+  color: white;
+}
