@@ -1,5 +1,5 @@
 .mat-card *:not(i) {
-  font-family: 'Source Code Pro', monospace !important;
+  font-family: 'Source Code Pro', monospace;
 }
 
 .mat-card .title {

@@ -38,9 +38,6 @@ export class AirportService {
   }
 
   private fetchAirports(): void {
-    // this.airports = this.mockAirports();
-    // FIXME: Uncomment 
-
     this.httpClient.get<Airport[]>(URL + '/airports', { headers: {
       'Content-Type': 'application/json'
     }}).subscribe(
@@ -55,34 +52,5 @@ export class AirportService {
 
   private onSuccess(): (value: Airport[]) => void {
     return (airports: Airport[]) => { this.airports = airports; };
-  }
-
-  private mockAirports(): Airport[] {
-    return [
-      {
-        city: 'Cracow',
-        country: 'Poland',
-        name: 'Balice',
-        timezone: 1
-      },
-      {
-        city: 'Warsaw',
-        country: 'Poland',
-        name: 'JP2',
-        timezone: 1
-      },
-      {
-        city: 'Moscow',
-        country: 'Poland',
-        name: 'Puting airport',
-        timezone: 3
-      },
-      {
-        city: 'Mielec',
-        country: 'Poland',
-        name: 'xd',
-        timezone: 1
-      }
-    ]
   }
 }

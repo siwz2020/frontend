@@ -104,22 +104,16 @@ export class OrderingService {
 
   private orderFlight(): void {
     const bookingRequest = this.composeBookingRequest();
-    // FIXME: uncomment later
     this.postBookingRequest(bookingRequest).subscribe(
-      // (val: string) => { console.log('siema ', val); }
       this.navigateToTripSummary(),
       this.handleBookingRequestError()
     );
-
-    // FIXME: delete later
-    // this.router.navigate(['/tickets'], { queryParams: this.composeQueryParams(5) });
   }
 
   private handleBookingRequestError(): (error: any) => void {
     return (error: any) => { this.errorService.handleError(error); };
   }
 
-    // TODO: maybe pass in extras some id of tickets?
   private navigateToTripSummary(): (response: { tripId: string }) => void {
     return (response: { tripId: string }) => {
       const { tripId } = response;

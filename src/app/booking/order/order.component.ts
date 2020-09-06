@@ -24,7 +24,6 @@ export class OrderComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    // TODO: send final object (passenger + trip -> get id of trip -> can check trip in trip module)
     this.orderService.onPassengerFormFilled(
       this.orderFormBuilder.mapFormArrayToPassengers(this.passengerForm)
     );

@@ -27,8 +27,6 @@ export class SearchFlightService {
   private readonly FLIGHTS_URL = URL + '/trips/findTrips';
 
   public fetchAvailableFlights(params: FlightRequestQueryParams): void {
-    // TODO: delete mock later
-    // this.foundTrips.next(this.returnMockedTrips());
     this.passengersNumber = params.passengerNumber;
     this.httpClient
       .get<[Trip[], Trip[]]>(this.FLIGHTS_URL, this.createHttpOptions(params))

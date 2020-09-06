@@ -31,8 +31,7 @@ export class FlightsComponent implements OnInit {
       (flights) => {
         this.flights = flights;
         this.assignComponentsTitle();
-        // simulate longer operation of fetching data
-        setTimeout(() => { this.isDataFetched = true; }, 1500);
+        this.isDataFetched = true;
       }
     );
   }

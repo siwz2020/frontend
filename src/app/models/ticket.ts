@@ -1,4 +1,5 @@
 import { Flight } from './flight';
+
 export interface Ticket {
   flightDto: Flight;
   departureDate: string;
