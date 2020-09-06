@@ -1,6 +1,6 @@
 import { Passenger } from './../../models/passenger';
 import { Injectable } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, Validators, FormGroup, ValidatorFn } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +26,12 @@ export class OrderFormBuilderService {
     const form = new FormArray([]);
     for (let i = 0; i < passengerNumber; i++) {
       form.push(new FormGroup({
-          firstname: new FormControl('', Validators.required),
-          surname: new FormControl('', Validators.required),
+          firstname: new FormControl('', this.getValidatorsForName()),
+          surname: new FormControl('', this.getValidatorsForName()),
           dateOfBirth: new FormControl('', Validators.required),
-          phoneNumber: new FormControl('', Validators.required),
-          pesel: new FormControl('', Validators.required),
-          email: new FormControl('')
+          phoneNumber: new FormControl('', this.getValidatorsForPhoneNumber()),
+          pesel: new FormControl('', this.getValidatorsForPesel()),
+          email: new FormControl('', this.getValidatorsForEmail())
         }));
     }
 
@@ -51,15 +51,27 @@ export class OrderFormBuilderService {
       });
     }
     return passengers;
+  }
 
-    // return {
-    //   firstName: form.controls['firstname'].value,
-    //   surname: form.controls['surname'].value,
-    //   dateOfBirth: this.parseDate(form.controls['dateOfBirth'].value),
-    //   pesel: form.controls['pesel'].value,
-    //   phoneNumber: form.controls['phoneNumber'].value,
-    //   email: form.controls['email'].value ? form.controls['email'].value : null
-    // };
+  public getMaxDateForBirthDate(): Date {
+    const date = new Date();
+    return new Date(date.getFullYear() - 2, date.getMonth(), date.getDay());
+  }
+
+  private getValidatorsForEmail() {
+    return [Validators.required, Validators.email];
+  }
+
+  private getValidatorsForPesel() {
+    return [Validators.required];
+  }
+
+  private getValidatorsForName(): Array<ValidatorFn> {
+    return [Validators.required, Validators.minLength(2), Validators.pattern(/[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]+$/)];
+  }
+
+  private getValidatorsForPhoneNumber(): Array<ValidatorFn> {
+    return [Validators.required, Validators.maxLength(9), Validators.minLength(9)];
   }
 
   private parseDate(date: string): string {

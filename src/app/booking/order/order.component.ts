@@ -11,6 +11,7 @@ import { OrderFormBuilderService } from './order-form-builder.service';
 export class OrderComponent implements OnInit {
   public passengersNumber: number;
   public passengerForm: FormArray;
+  public maxDateForBirthDate: Date;
 
   constructor(
     private orderFormBuilder: OrderFormBuilderService,
@@ -19,6 +20,7 @@ export class OrderComponent implements OnInit {
   public ngOnInit(): void {
     this.passengersNumber = this.orderService.getPassengersNumber();
     this.initializePassengersForm();
+    this.maxDateForBirthDate = this.orderFormBuilder.getMaxDateForBirthDate();
   }
 
   public onSubmit(): void {
