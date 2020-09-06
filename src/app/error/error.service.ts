@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class ErrorService {
 
   constructor(private router: Router) { }
 
-  public getErrorCause(): string {
-    return JSON.stringify(this.error);
+  public getErrorCause(): HttpErrorResponse {
+    return this.error;
   }
 
   public handleError(error: any): void {

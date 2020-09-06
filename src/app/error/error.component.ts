@@ -1,5 +1,6 @@
 import { ErrorService } from './error.service';
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-error',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./error.component.css']
 })
 export class ErrorComponent implements OnInit {
-  public error = '';
+  public error: HttpErrorResponse;
 
   constructor(private errorService: ErrorService) { }
 
@@ -15,7 +16,7 @@ export class ErrorComponent implements OnInit {
     this.error = this.getErrorMessage();
   }
 
-  private getErrorMessage(): string {
+  private getErrorMessage(): HttpErrorResponse {
     return this.errorService.getErrorCause();
   }
 }

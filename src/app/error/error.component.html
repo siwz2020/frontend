@@ -8,7 +8,12 @@
           <mat-expansion-panel-header>
             <mat-panel-title>Detale</mat-panel-title>
           </mat-expansion-panel-header>
-          {{error}}
+          Status: {{error.status}} <br />
+          Error name: {{error.name}} <br />
+          Message: {{error.message}} <br />
+          Details: {{error.error}} <br />
+          Url: {{error.url}} <br />
+          Status text: {{error.statusText}} <br />
         </mat-expansion-panel>
       </mat-accordion>
 
